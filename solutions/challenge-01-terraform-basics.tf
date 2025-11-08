@@ -16,11 +16,18 @@
 #   - Resource dependencies
 #   - depends_on meta-argument
 #   - Execution order in Terraform
+#   - Capturing flags upon successful validation
 #
 # HINTS:
 #   - null_resource is perfect for this challenge
 #   - Use depends_on to create a chain
 #   - Resource IDs are automatically generated
+#   - Flag is revealed when you succeed (not needed beforehand!)
+#
+# CTF PARADIGM:
+#   - Complete the challenge requirements
+#   - Submit proof of work
+#   - Flag is REVEALED as your reward!
 # ============================================================================
 
 # TODO: Create your first resource here
@@ -50,13 +57,13 @@
 # }
 
 # ============================================================================
-# Validation
+# Validation & Flag Capture
 # ============================================================================
 # Uncomment and complete the validation block when ready
+# Notice: NO flag parameter! The flag is revealed upon successful validation
 
 # resource "ctfchallenge_flag_validator" "terraform_basics" {
 #   challenge_id = "terraform_basics"
-#   flag         = "flag{t3rr4f0rm_d3p3nd3nc13s}"
 #
 #   proof_of_work = {
 #     dependencies = join(",", [
@@ -68,9 +75,26 @@
 # }
 
 # ============================================================================
-# Output
+# Output - Capture the Flag!
 # ============================================================================
 
 # output "challenge_01_result" {
-#   value = ctfchallenge_flag_validator.terraform_basics.message
+#   description = "Validation result message"
+#   value       = ctfchallenge_flag_validator.terraform_basics.message
 # }
+
+# output "challenge_01_flag" {
+#   description = "🏴 Captured flag!"
+#   value       = ctfchallenge_flag_validator.terraform_basics.flag
+#   sensitive   = true
+# }
+
+# output "challenge_01_points" {
+#   description = "Points earned"
+#   value       = ctfchallenge_flag_validator.terraform_basics.points
+# }
+
+# ============================================================================
+# View your captured flag with:
+#   terraform output -raw challenge_01_flag
+# ============================================================================

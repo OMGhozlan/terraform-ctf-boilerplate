@@ -15,12 +15,21 @@
 #   - sha256() function
 #   - Function nesting/chaining
 #   - Cryptographic operations in Terraform
+#   - Testing in terraform console
 #
 # HINTS:
 #   - Start from the inside out
 #   - First: sha256("terraform_ctf_11_2025")
 #   - Then: md5(result_from_step_1)
-#   - Test each step in terraform console
+#   - Test each step in terraform console:
+#     > sha256("terraform_ctf_11_2025")
+#     > md5(sha256("terraform_ctf_11_2025"))
+#   - Break it into locals for debugging
+#
+# CTF PARADIGM:
+#   - Compute the hash correctly
+#   - Submit as proof of work
+#   - Flag is REVEALED upon success!
 # ============================================================================
 
 # TODO: Create the computation
@@ -35,12 +44,11 @@
 # }
 
 # ============================================================================
-# Validation
+# Validation & Flag Capture
 # ============================================================================
 
 # resource "ctfchallenge_flag_validator" "cryptographic_compute" {
 #   challenge_id = "cryptographic_compute"
-#   flag         = "flag{crypt0_func_m4st3r}"
 #
 #   proof_of_work = {
 #     crypto_hash = local.final_hash
@@ -50,3 +58,26 @@
 # output "challenge_08_result" {
 #   value = ctfchallenge_flag_validator.cryptographic_compute.message
 # }
+
+# output "challenge_08_flag" {
+#   description = "🏴 Captured flag!"
+#   value       = ctfchallenge_flag_validator.cryptographic_compute.flag
+#   sensitive   = true
+# }
+
+# ============================================================================
+# Debug outputs (optional)
+# ============================================================================
+
+# output "challenge_08_debug" {
+#   value = {
+#     input      = local.secret
+#     sha256     = local.sha_hash
+#     final_md5  = local.final_hash
+#   }
+# }
+
+# ============================================================================
+# View your captured flag with:
+#   terraform output -raw challenge_08_flag
+# ============================================================================

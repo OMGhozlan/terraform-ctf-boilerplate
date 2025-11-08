@@ -10,7 +10,7 @@
 # REQUIREMENTS:
 #   1. Create a module in the modules/ directory
 #   2. Use the module in your configuration
-#   3. Reference module outputs
+#   3. Reference module outputs in your proof of work
 #
 # LEARNING GOALS:
 #   - Module structure (main.tf, variables.tf, outputs.tf)
@@ -23,9 +23,22 @@
 #   - Module must have at least one output
 #   - Use module.module_name.output_name syntax
 #   - Keep it simple - even a basic module works
+#   - Proof should reference the module output
+#
+# CTF PARADIGM:
+#   - Create a working module
+#   - Use it in your config
+#   - Submit proof with module reference
+#   - Flag is REVEALED upon success!
+#
+# MODULE STRUCTURE:
+#   modules/example-module/
+#   ├── main.tf       (module resources)
+#   ├── variables.tf  (module inputs)
+#   └── outputs.tf    (module outputs)
 # ============================================================================
 
-# TODO: Create your module first in modules/ directory
+# TODO: Create your module first in modules/example-module/ directory
 # Then use it here:
 
 # module "my_module" {
@@ -43,12 +56,11 @@
 # }
 
 # ============================================================================
-# Validation
+# Validation & Flag Capture
 # ============================================================================
 
 # resource "ctfchallenge_flag_validator" "module_master" {
 #   challenge_id = "module_master"
-#   flag         = "flag{m0dul3_c0mp0s1t10n_pr0}"
 #
 #   proof_of_work = {
 #     module_output = "module.my_module.some_output = ${module.my_module.some_output}"
@@ -58,3 +70,14 @@
 # output "challenge_04_result" {
 #   value = ctfchallenge_flag_validator.module_master.message
 # }
+
+# output "challenge_04_flag" {
+#   description = "🏴 Captured flag!"
+#   value       = ctfchallenge_flag_validator.module_master.flag
+#   sensitive   = true
+# }
+
+# ============================================================================
+# View your captured flag with:
+#   terraform output -raw challenge_04_flag
+# ============================================================================

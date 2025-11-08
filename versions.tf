@@ -3,8 +3,8 @@ terraform {
 
   required_providers {
     ctfchallenge = {
-      source  = "OMGhozlan/ctfchallenge"
-      version = "1.0.4"
+      source  = "omghozlan/ctfchallenge"
+      version = "~> 1.0"
     }
 
     null = {

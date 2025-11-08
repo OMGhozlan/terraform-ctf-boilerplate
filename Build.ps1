@@ -2,7 +2,7 @@
 
 param(
     [Parameter(Position=0)]
-    [ValidateSet('help', 'init', 'validate', 'fmt', 'plan', 'apply', 'destroy', 'clean', 'status', 'progress')]
+    [ValidateSet('help', 'init', 'validate', 'fmt', 'plan', 'apply', 'destroy', 'clean', 'status', 'progress', 'flags')]
     [string]$Command = 'help'
 )
 
@@ -21,6 +21,7 @@ function Show-Help {
     Write-Host "Progress:" -ForegroundColor Yellow
     Write-Host "  .\Build.ps1 status    - Show challenge status"
     Write-Host "  .\Build.ps1 progress  - Show progress"
+    Write-Host "  .\Build.ps1 flags     - Show captured flags"
     Write-Host ""
     Write-Host "Cleanup:" -ForegroundColor Yellow
     Write-Host "  .\Build.ps1 clean     - Remove Terraform files"
@@ -67,6 +68,11 @@ switch ($Command) {
     }
     'progress' {
         terraform output completion_percentage 2>$null
+    }
+    'flags' {
+        Write-Host "🏴 Captured Flags:" -ForegroundColor Cyan
+        Write-Host "==================" -ForegroundColor Cyan
+        terraform output -json captured_flags 2>$null | ConvertFrom-Json | ConvertTo-Json
     }
     default {
         Show-Help
