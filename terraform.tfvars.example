@@ -1,0 +1,48 @@
+# ============================================================================
+# Terraform CTF Challenge Configuration
+# ============================================================================
+# INSTRUCTIONS:
+#   1. Copy this file to terraform.tfvars
+#   2. Edit the values below
+#   3. Run: terraform init
+#   4. Run: terraform apply
+# ============================================================================
+
+# Your player name (required)
+player_name = "YourNameHere"
+
+# Enable hints (optional - costs points!)
+# Level 0 = -10 points, Level 1 = -20 points, Level 2 = -30 points
+enable_hints = false
+
+# Hint levels for each challenge (0 = subtle, 1 = medium, 2 = detailed)
+hint_levels = {
+  terraform_basics      = 0
+  expression_expert     = 0
+  state_secrets         = 0
+  module_master         = 0
+  dynamic_blocks        = 0
+  for_each_wizard       = 0
+  data_source_detective = 0
+  cryptographic_compute = 0
+}
+
+# Enable or disable specific challenges
+enable_challenges = {
+  terraform_basics      = true
+  expression_expert     = true
+  state_secrets         = true
+  module_master         = true
+  dynamic_blocks        = true
+  for_each_wizard       = true
+  data_source_detective = true
+  cryptographic_compute = true
+}
+
+# Optional tags
+tags = {
+  Project     = "terraform-ctf"
+  Player      = "YourNameHere"
+  ManagedBy   = "terraform"
+  Environment = "learning"
+}
